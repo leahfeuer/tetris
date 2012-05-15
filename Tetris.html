@@ -6,9 +6,74 @@
 Your browser does not support the canvas element.
 </canvas>
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	
 <script type="text/javascript">
 
-// Piece rotation
+// i shape moving down until hits bottom of canvas
+
+var x = 90;
+var y = 0;
+var dy = 30;
+var width = $("#canvas").width();
+var height = $("#canvas").height();
+
+// keystroke setup
+
+rightDown = false;
+leftDown = false;
+
+function onKeyDown(evt) {
+	if (evt.keyCode == 39) rightDown = true;
+	else if (evt.keyCode == 37) leftDown = true;
+}
+
+function onKeyUp(evt) {
+	if (evt.keyCode == 39) rightDown = false;
+	else if (evt.keyCode == 37) leftDown = false;
+}
+
+$(document).keydown(onKeyDown);
+$(document).keyup(onKeyUp);
+
+function init() {
+	var canvas = document.getElementById("canvas");
+	var ctx = canvas.getContext("2d");
+	return setInterval (draw, 500);
+}
+
+function square(x,y,w,h) {
+	var canvas = document.getElementById("canvas");
+	var ctx = canvas.getContext("2d");
+	ctx.fillStyle="#FFFF00";
+	ctx.fillRect(x, y, 30, 30);
+}
+
+function clear () {
+	var canvas = document.getElementById("canvas");
+	var ctx = canvas.getContext("2d");
+	ctx.clearRect(0,0, 300,600);
+}
+
+function draw() {
+	if (y+dy <= height) { 
+	clear();
+	square(x,y,30,30);
+	square(x+30,y,30,30 );
+	square(x+60,y, 30,30 );
+	square(x+90,y,30,30 );
+	
+	y+=dy;
+	if (rightDown) x+=30;
+	else if (leftDown) x-=30;
+	}
+	
+
+}
+
+init ();
+
+// Piece rotation setup
 
 /*
 var i0= [
@@ -123,66 +188,7 @@ var o270=[
 
 */
 
-// Practice making a block move, w/ better set up
 
-var x = 90;
-var y = 0;
-var dy = 30;
-
-function init() {
-	var canvas = document.getElementById("canvas");
-	var ctx = canvas.getContext("2d");
-	return setInterval (draw, 500);
-}
-
-function square(x,y,w,h) {
-	var canvas = document.getElementById("canvas");
-	var ctx = canvas.getContext("2d");
-	ctx.fillStyle="#FFFF00";
-	ctx.fillRect(x, y, 30, 30);
-}
-
-function clear () {
-	var canvas = document.getElementById("canvas");
-	var ctx = canvas.getContext("2d");
-	ctx.clearRect(0,0, 300,600);
-}
-
-function draw() {
-	if (y+dy < 610) {
-	clear();
-	square(x,y,30,30);
-	square(x+30,y,30,30 );
-	square(x+60,y, 30,30 );
-	square(x+90,y,30,30 );
-	
-	y+=dy;
-	}
-	
-
-}
-
-init ();
-
-// Practice making a block move
-
-
-/*function init() {
-	var canvas = document.getElementById("canvas");
-	var ctx = canvas.getContext("2d");
-	return setInterval (draw, 100);
-}
-
-function draw() {
-	var canvas = document.getElementById("canvas");
-	var ctx = canvas.getContext("2d");
-	ctx.clearRect(0,0,300,600)
-	ctx.fillStyle="#FFFF00";
-	ctx.fillRect(x, y, 60, 60);
-	y +=dy;
-}
-
-init();*/
 
 </script>
 
