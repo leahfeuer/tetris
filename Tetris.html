@@ -7,8 +7,33 @@ Your browser does not support the canvas element.
 </canvas>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-	
+
 <script type="text/javascript">
+
+// set up for court
+var blocks;
+var rows;
+var cols;
+var blockwidth;
+var blockheight;
+
+function initcourt () {
+	rows = 20;
+	cols = 10;
+	blockwidth = (width/cols) - 1;
+	blockheigh = (height/rows) - 1;
+
+	blocks = new Array(rows);
+	for (i=0; i<rows; i++){
+		blocks[i] = new Array(cols);
+		for (j=0; j<cols; j++) {
+			blocks[i] [j] = 0;
+			}
+		}
+
+}
+
+//draw existing court
 
 // i shape moving down until hits bottom of canvas
 
@@ -18,9 +43,10 @@ var dy = 30;
 var width = $("#canvas").width();
 var height = $("#canvas").height();
 
-// keystroke setup
 
-rightDown = false;
+// old keystroke setup
+
+/*rightDown = false;
 leftDown = false;
 
 function onKeyDown(evt) {
@@ -34,7 +60,8 @@ function onKeyUp(evt) {
 }
 
 $(document).keydown(onKeyDown);
-$(document).keyup(onKeyUp);
+$(document).keyup(onKeyUp);*/
+
 
 function init() {
 	var canvas = document.getElementById("canvas");
@@ -56,20 +83,33 @@ function clear () {
 }
 
 function draw() {
-	if (y+dy <= height) { 
+	if (y+dy <= height) {
 	clear();
 	square(x,y,30,30);
 	square(x+30,y,30,30 );
 	square(x+60,y, 30,30 );
 	square(x+90,y,30,30 );
-	
+
 	y+=dy;
-	if (rightDown) x+=30;
-	else if (leftDown) x-=30;
-	}
-	
 
 }
+
+$(document).keypress(function(event){
+			if (event.which == 76){
+				x+=30;
+				}
+			else if (event.which == 74){
+				x-=30;
+				}
+			});
+
+	}
+
+$(document).keypress(function(event){
+		if (event.which == 13){
+			alert ("button pressed");
+			}
+		});
 
 init ();
 
